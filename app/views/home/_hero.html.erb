@@ -53,7 +53,11 @@
           </div>
           <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
             <span class="inline-flex rounded-md shadow">
+              <% if user_signed_in? %>
+                <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: 'delete'}, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-green-600 bg-white hover:bg-gray-50" %>
+                <% else %>
               <%= link_to "Log in", new_user_session_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-green-600 bg-white hover:bg-gray-50" %>
+                <% end %>
             </span>
           </div>
         </nav>
@@ -95,7 +99,11 @@
 
             <a data-menu-target="headerNav" data-section="faq" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="#">FAQ</a>
           </div>
+          <% if user_signed_in? %>
+            <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: 'delete'}, class: "block w-full px-5 py-3 text-center font-medium text-green-600 bg-gray-50 hover:bg-gray-100" %>
+            <% else %>
           <%= link_to "Log in", new_user_session_path, class: "block w-full px-5 py-3 text-center font-medium text-green-600 bg-gray-50 hover:bg-gray-100" %>
+            <% end %>
         </div>
       </div>
     </div>
