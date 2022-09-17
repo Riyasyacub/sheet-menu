@@ -11,3 +11,7 @@
 }
 
 */
+
+.turbo-progress-bar {
+    @apply bg-green-700;
+}
