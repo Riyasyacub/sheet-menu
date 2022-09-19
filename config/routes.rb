@@ -11,4 +11,6 @@ Rails.application.routes.draw do
     end
   end
   root to: 'home#index'
+  get '/settings', to: 'settings#index', as: :settings
+  put '/settings', to: 'settings#update'
 end

@@ -1,0 +1,70 @@
+<div class="max-w-6xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-xl font-semibold text-gray-900">Menus</h1>
+        <p class="mt-2 text-sm text-gray-700">A list of all the menus you created</p>
+      </div>
+      <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+        <%= link_to "Add Menu", "", class: "inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto" %>
+      </div>
+    </div>
+    <% if current_user.menus.size > 0 %>
+      <div class="mt-8 flex flex-col">
+        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Title</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sheet key</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Sheet Menu
+                    Test
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">1GaCgdVQQYbDON-kWsGJQB-2JVjy6rcxscicJ2Iz3Lag</td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <a target="_blank" class="text-green-600 hover:text-green-900" href="/menus/4">View</a>
+                    <a target="_blank" class="ml-2 font-medium text-green-600 hover:text-green-900" href="/qr_codes/4">Print
+                      QR Code</a>
+                  </td>
+                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <a class="text-green-600 hover:text-green-900" href="/menus/4/edit">Edit</a>
+                    <a data-turbo-method="put" class="ml-2 text-green-600 hover:text-green-900" href="/menu_syncs/4">Sync</a>
+                    <a data-turbo-method="delete" class="ml-2 text-red-600 hover:text-red-900" href="/menus/4">Delete</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 space-y-12">
+          <div class="flex justify-center">
+            <iframe width="800" height="450" src="https://www.youtube.com/embed/FGnYgpD3veU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="mt-8 flex flex-col">
+        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div class="pt-8">
+              <p class="text-center text-4xl font-light">You have no menus.</p>
+              <p class="text-center text-4xl font-light mt-8">Add a menu by clicking the "Add menu" button</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

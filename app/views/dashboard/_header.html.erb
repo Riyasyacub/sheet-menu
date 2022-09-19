@@ -9,7 +9,7 @@
         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
           <!-- Current: "border-green-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           <%= link_to 'Dashboard', authenticated_root_path, class: dashboard_header_class('dashboard') %>
-          <%= link_to 'Settings', "#", class: dashboard_header_class('settings') %>
+          <%= link_to 'Settings', settings_path, class: dashboard_header_class('settings') %>
         </div>
       </div>
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -49,7 +49,7 @@
     <div class="pt-2 pb-3 space-y-1">
       <!-- Current: "bg-green-50 border-green-500 text-green-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
       <%= link_to 'Dashboard', authenticated_root_path, class: dashboard_mobile_header_class('dashboard') %>
-      <%= link_to 'Settings', "#", class: dashboard_mobile_header_class('settings') %>
+      <%= link_to 'Settings', settings_path, class: dashboard_mobile_header_class('settings') %>
       <%= link_to 'Log out', destroy_user_session_path, data: { turbo_method: :delete }, class: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" %>
     </div>
   </div>

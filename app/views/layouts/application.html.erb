@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class=" <%= 'h-full bg-grey-50' if devise_controller? %>" >
+<html class=" <%= 'h-full bg-grey-50' if devise_controller? || user_signed_in? %>" >
   <head>
     <title>SheetMenu</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class=" <%= 'h-full' if devise_controller? %>" >
+  <body class=" <%= 'h-full' if devise_controller? || user_signed_in? %>" >
   <% if user_signed_in? %>
   <%= render 'dashboard/header' %>
   <% end %>
