@@ -12,6 +12,9 @@
   </head>
 
   <body class=" <%= 'h-full' if devise_controller? %>" >
+  <% if user_signed_in? %>
+  <%= render 'dashboard/header' %>
+  <% end %>
   <%= yield %>
   </body>
 </html>
