@@ -8,11 +8,11 @@ class MenusController < ApplicationController
   end
 
   def create
-    @menu = Menu.create(menu_params)
-    if @menu.errors.any?
-      render :new
-    else
+    @menu = Menu.create_with_sheet_key(current_user, menu_params)
+    if @menu.persisted?
       redirect_to authenticated_root_path
+    else
+      redirect_to new_menu_path
     end
 
   end
@@ -20,6 +20,6 @@ class MenusController < ApplicationController
   private
 
   def menu_params
-    params.require(:menu).permit(:title,:sheet_key)
+    params.require(:menu).permit(:sheet_key)
   end
 end
