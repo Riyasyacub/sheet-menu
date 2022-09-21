@@ -16,6 +16,6 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:settings).permit(:email,:password)
+    params.require(:setting).permit(:email,:password)
   end
 end

@@ -1,6 +1,6 @@
 <main class="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
   <div class="mb-8">
-    <%= form_with model: current_user, scope: :settings, method: :put, url: settings_path do |f| %>
+    <%= form_with model: current_user, scope: :setting, method: :put, url: settings_path do |f| %>
       <div class="space-y-6">
         <div>
           <h1 class="text-lg leading-6 font-medium text-gray-900">User Settings</h1>

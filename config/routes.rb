@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '/settings', to: 'settings#index', as: :settings
   put '/settings', to: 'settings#update'
+  resources :menus, only: [:new, :create]
+
 end

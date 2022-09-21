@@ -1,5 +1,5 @@
 class Menu < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of :sheet_key
+  validates_presence_of :sheet_key, :title
 end
