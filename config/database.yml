@@ -82,5 +82,4 @@ test:
 production:
   <<: *default
   database: sheet_menu_production
-  username: sheet_menu
-  password: <%= ENV["SHEET_MENU_DATABASE_PASSWORD"] %>
+

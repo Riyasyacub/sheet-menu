@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html class=" <%= 'h-full bg-grey-50' if devise_controller? || user_signed_in? %>" >
-  <head>
-    <title>SheetMenu</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<html class=" <%= 'h-full bg-grey-50' if devise_controller? || user_signed_in? %>">
+<head>
+  <title>SheetMenu</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body class=" <%= 'h-full' if devise_controller? || user_signed_in? %>" >
-  <% if user_signed_in? %>
+<body class=" <%= 'h-full' if devise_controller? || user_signed_in? %>">
+<%= render 'layouts/notification' %>
+<% if user_signed_in? %>
   <%= render 'dashboard/header' %>
-  <% end %>
-  <%= yield %>
-  </body>
+<% end %>
+<%= yield %>
+</body>
 </html>

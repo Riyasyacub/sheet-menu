@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '/settings', to: 'settings#index', as: :settings
   put '/settings', to: 'settings#update'
-  resources :menus, only: [:new, :create]
-
+  resources :menus
+  get '/sync/:id', to: 'menus#sync', as: :sync
+  get '/qr_code/:id', to: 'menus#qr_code', as: :qr_code
 end

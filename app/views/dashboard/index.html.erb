@@ -26,31 +26,26 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 bg-white">
-                <tr>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Sheet Menu
-                    Test
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">1GaCgdVQQYbDON-kWsGJQB-2JVjy6rcxscicJ2Iz3Lag</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    <a target="_blank" class="text-green-600 hover:text-green-900" href="/menus/4">View</a>
-                    <a target="_blank" class="ml-2 font-medium text-green-600 hover:text-green-900" href="/qr_codes/4">Print
-                      QR Code</a>
-                  </td>
-                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                    <a class="text-green-600 hover:text-green-900" href="/menus/4/edit">Edit</a>
-                    <a data-turbo-method="put" class="ml-2 text-green-600 hover:text-green-900" href="/menu_syncs/4">Sync</a>
-                    <a data-turbo-method="delete" class="ml-2 text-red-600 hover:text-red-900" href="/menus/4">Delete</a>
-                  </td>
-                </tr>
+                <% @menu.each do |menu| %>
+                  <tr>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <%= menu.title %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= menu.sheet_key %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <%= link_to "View", menu_path(menu), class: "text-green-600 hover:text-green-900" %>
+                      <%= link_to "Print QR Code", qr_code_path(menu), class: "ml-2 font-medium text-green-600 hover:text-green-900" %>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <%= link_to "Edit", edit_menu_path(menu), class: "text-green-600 hover:text-green-900" %>
+                      <%= link_to "Sync", sync_path(menu), class: "ml-2 text-green-600 hover:text-green-900" %>
+                      <%= link_to 'Delete', menu_path(menu), data: { turbo_method: :delete, confirm: "Are you sure?" }, class: "ml-2 text-red-600 hover:text-red-900" %>
+                    </td>
+                  </tr>
+                <% end %>
                 </tbody>
               </table>
             </div>
-          </div>
-        </div>
-
-        <div class="mt-12 space-y-12">
-          <div class="flex justify-center">
-            <iframe width="800" height="450" src="https://www.youtube.com/embed/FGnYgpD3veU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
           </div>
         </div>
       </div>

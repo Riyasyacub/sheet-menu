@@ -1,0 +1,73 @@
+<% if flash.present? %>
+  <% flash.each do |f| %>
+    <div id="notif" class="visible <%= f[0] %>"><%= f[1] %></div>
+  <% end %>
+<% end %>
+<style>
+    #hoverme {
+        background: grey;
+        color: black;
+        padding: 5px;
+        text-decoration: none;
+    }
+
+    .alert {
+        background: rgba(224, 88, 87, 0.84);
+    }
+
+    .success {
+        background: #4aa44b;
+    }
+
+    .warning {
+        background: rgba(224, 88, 87, 0.84);
+    }
+    .notice {
+        background: rgba(85, 134, 239, 0.84);
+    }
+
+    .visible {
+        animation: movein 0.5s ease forwards, moveout 0.5s 3s ease forwards;
+        color: white;
+        border-radius: 0.375rem;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 20px;
+        right: 0;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    /*#notif {
+      left: 10px;
+      opacity: 0;
+    }*/
+
+    @keyframes movein {
+        from {
+            right: -240px;
+        }
+        to {
+            right: 10px;
+        }
+    }
+
+    @keyframes moveout {
+        from {
+            right: 10px;
+        }
+        to {
+            right: -240px;
+        }
+    }
+</style>
+<script>
+    var button = document.getElementById('hoverme');
+    var slideout = document.getElementById('notif');
+
+    button.onclick = function () {
+        slideout.classList.toggle('visible');
+    };
+</script>
