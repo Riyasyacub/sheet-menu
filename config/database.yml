@@ -81,5 +81,5 @@ test:
 #
 production:
   <<: *default
-  database: sheet_menu_production
+  url: <%= ENV['DATABASE_URL'] %>
 
