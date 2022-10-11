@@ -1,6 +1,10 @@
-<div class="max-w-sm rounded overflow-hidden shadow-lg m-2">
-  <img class="w-full" src="<%= item.image_url %>" alt="Sunset in the mountains">
-  <div class="px-6 py-4">
+<div class="max-w-sm box-border rounded overflow-hidden shadow-lg m-2">
+  <% if item.image_url.present? %>
+    <img class="w-full object-cover" loading="lazy" src="<%= item.image_url %>" alt="<%= item.item_name %>">
+  <% else %>
+    <img class="w-full object-cover" loading="lazy" src="https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png" alt="<%= item.item_name %>">
+  <% end %>
+  <div class="px-6 py-4" data-controller="cart">
     <div class="font-bold text-xl mb-2"><%= item.item_name %></div>
     <p class="text-gray-900 text-base">
       ₹ <%= item.price %>
@@ -8,10 +12,17 @@
     <p class="text-gray-700 text-base">
       <%= item.description %>
     </p>
+    <div>
+<!--      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="qty-<%#= item.id %>" type="number" min="0" placeholder="Quantity">-->
+    </div>
+    <div>
+      <%= render partial: 'cart/add_form', locals: {item: item, qty: item.qty} %>
+<!--      <button data-cart-target="addToCart" id="atc-<%#= item.id %>" >Add to Cart</button>-->
+    </div>
   </div>
-<!--  <div class="px-6 pt-4 pb-2">-->
-<!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>-->
-<!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>-->
-<!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>-->
-<!--  </div>-->
+  <!--  <div class="px-6 pt-4 pb-2">-->
+  <!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>-->
+  <!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>-->
+  <!--    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>-->
+  <!--  </div>-->
 </div>

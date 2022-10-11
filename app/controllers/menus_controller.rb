@@ -1,48 +1,57 @@
 # frozen_string_literal: true
 
 class MenusController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
+  before_action :set_menu, except: [:show, :new, :create]
 
   def show
-    @menu = current_user.menus.find params[:id]
+    @menu = Menu.find params[:id]
+    orderables = @cart.orderables.to_sql
+    @menu = @menu.menu_items
+                 .joins("left join (#{orderables}) orderables on orderables.menu_item_id = menu_items.id")
+                 .select('menu_items.*, coalesce(orderables.qty,0) as qty')
+                 .group_by(&:category)
   end
 
   def new
-    @menu = Menu.new
+    @menu = current_user.menus.new
   end
 
   def create
-    @menu = current_user.menus.create_with_sheet_key(menu_params['sheet_key'])
+    @menu = current_user.menus.create_with_sheet_key(menu_params)
     if @menu.persisted?
       redirect_to authenticated_root_path
       flash[:success] = "Menu Created Successfully!"
     else
       redirect_to new_menu_path
+      flash[:alert] = @menu.errors.full_messages
     end
   end
 
   def edit
-
   end
 
   def update
-
+    if @menu.update(menu_params)
+      redirect_to authenticated_root_path
+      flash[:success] = "Menu Updated Successfully!"
+    else
+      redirect_to edit_menu_path
+      flash[:alert] = @menu.errors.full_messages
+    end
   end
 
   def qr_code
-    @menu = current_user.menus.find params[:id]
     @qrcode = RQRCode::QRCode.new(menu_url(@menu))
   end
 
   def sync
-    menu = current_user.menus.find params[:id]
-    menu.sync!
+    Menu.sync!(@menu)
     redirect_to authenticated_root_path
     flash[:success] = "Synced Successfully!"
   end
 
   def destroy
-    @menu = Menu.find params[:id]
     @menu.destroy
     redirect_to authenticated_root_path
     flash[:warning] = "Menu Deleted!"
@@ -51,6 +60,12 @@ class MenusController < ApplicationController
   private
 
   def menu_params
-    params.require(:menu).permit(:sheet_key)
+    params.require(:menu).permit(:sheet_key, :logo)
+  end
+
+  def set_menu
+    @menu = Menu.find_by(id: params[:id])
+    return if @menu.present?
+    flash[:alert] = 'Menu not found!'
   end
 end

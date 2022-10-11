@@ -1,0 +1,7 @@
+<%= turbo_frame_tag dom_id item do %>
+  <%= form_with(url: cart_add_path) do |f| %>
+    <%= f.hidden_field :id, value: item.id %>
+    <%= f.number_field :qty, value: qty, min: 1 %>
+    <%= f.submit "Add to cart" %>
+  <% end %>
+<% end %>

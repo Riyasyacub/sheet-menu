@@ -11,11 +11,15 @@
   <%= javascript_importmap_tags %>
 </head>
 
-<body class=" <%= 'h-full' if devise_controller? || user_signed_in? %>">
+<body class="<%= 'h-full' if devise_controller? || user_signed_in? %>">
 <%= render 'layouts/notification' %>
 <% if user_signed_in? %>
   <%= render 'dashboard/header' %>
 <% end %>
+<% if unknown_user? %>
+  <%= render 'dashboard/unknown_header' %>
+<% end %>
 <%= yield %>
+<%= render 'layouts/slide_over'  %>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<%= turbo_frame_tag 'cart' do %>
+  <% if cart.orderables.count > 0 %>
+    <% cart.orderables.each do |orderable| %>
+      <% item = orderable.menu_item %>
+      <li class="flex py-6" id="<%= "cart-#{item.id}" %>">
+        <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+          <img src="<%= item.image_url.present? ? item.image_url : 'https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png' %>" alt="<%= item.item_name %>" class="h-full w-1 object-cover object-center">
+        </div>
+
+        <div class="ml-4 flex flex-1 flex-col">
+          <div>
+            <div class="flex justify-between text-base font-medium text-gray-900">
+              <h3>
+                <p><%= item.item_name %></p>
+              </h3>
+              <p class="ml-4">₹ <%= item.price %></p>
+            </div>
+          </div>
+          <div class="flex flex-1 items-end justify-between text-sm">
+            <p class="text-gray-500">Qty <span data-qty-id="<%= item.id %>"><%= orderable.qty %></span></p>
+
+            <div class="flex">
+              <%= form_with(url: cart_remove_path) do |f| %>
+                <%= f.hidden_field :id, value: orderable.id %>
+                <%= f.submit "Remove" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  <% else %>
+    <p>Add Items to Cart</p>
+  <% end %>
+<% end %>

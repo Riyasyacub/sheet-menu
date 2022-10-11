@@ -6,12 +6,11 @@ export default class extends Controller {
 
     connect() {
         this.menuButtonTarget.addEventListener('click', () => {
-            if (this.mobileMenuTarget.classList.contains('hidden')){
+            if (this.mobileMenuTarget.classList.contains('hidden')) {
                 this.mobileMenuTarget.classList.remove('hidden')
                 this.openIconTarget.classList.add('hidden')
                 this.closeIconTarget.classList.remove('hidden')
-            }
-            else{
+            } else {
                 this.mobileMenuTarget.classList.add('hidden')
                 this.openIconTarget.classList.remove('hidden')
                 this.closeIconTarget.classList.add('hidden')

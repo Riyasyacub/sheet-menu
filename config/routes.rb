@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   resources :menus
   get '/sync/:id', to: 'menus#sync', as: :sync
   get '/qr_code/:id', to: 'menus#qr_code', as: :qr_code
+  resources :cart
+  post 'cart/add', to: 'cart#add', as: :cart_add
+  post 'cart/remove', to: 'cart#remove', as: :cart_remove
 end
