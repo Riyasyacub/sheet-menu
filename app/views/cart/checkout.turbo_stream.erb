@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "msg", partial: "layouts/flash" %>
+<%= turbo_stream.replace('cart', partial: 'menus/cart_item', locals: { items: [] }) %>
+<%= turbo_stream.replace('cart-total', "<turbo-frame id='cart-total'><p>₹ #{Cart.new.total}</p></turbo-frame>") %>
+<% @cart.orderables.each do |item| %>
+  <%= turbo_stream.replace(item.menu_item, partial: 'cart/add_form', locals: { item: item.menu_item, qty: 0 }) %>
+<% end %>

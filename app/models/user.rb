@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :menus, dependent: :destroy
+  has_many :carts, foreign_key: :hotel_id
 end

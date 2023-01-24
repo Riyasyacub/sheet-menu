@@ -1,0 +1,14 @@
+<%= turbo_frame_tag 'cart-total' do %>
+  <div class="flex justify-between">
+    <p>Subtotal</p>
+    <p>₹ <%= @cart.total(items) %></p>
+  </div>
+  <div class="flex justify-between">
+    <p>Taxes (5%)</p>
+    <p>₹ <%= @cart.tax(items) %></p>
+  </div>
+  <div class="flex justify-between text-base font-bold text-gray-900">
+    <p>Total</p>
+    <p>₹ <%= @cart.total(items) + @cart.tax(items) %></p>
+  </div>
+<% end %>

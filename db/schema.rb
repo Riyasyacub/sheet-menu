@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_05_132933) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_25_151024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hotel_id"
+    t.bigint "table_id"
+    t.boolean "billed", default: false
+    t.index ["hotel_id"], name: "index_carts_on_hotel_id"
+    t.index ["table_id"], name: "index_carts_on_table_id"
   end
 
   create_table "menu_items", force: :cascade do |t|
@@ -48,6 +53,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_132933) do
     t.integer "qty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "ordered", default: false
+    t.datetime "ordered_at"
+    t.boolean "cancelled", default: false
+    t.boolean "served", default: false
+    t.datetime "served_at"
+    t.boolean "preparing", default: false
     t.index ["cart_id"], name: "index_orderables_on_cart_id"
     t.index ["menu_item_id"], name: "index_orderables_on_menu_item_id"
   end
@@ -75,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_132933) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "carts", "tables"
+  add_foreign_key "carts", "users", column: "hotel_id"
   add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "users"
   add_foreign_key "orderables", "carts"

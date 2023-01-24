@@ -1,0 +1,5 @@
+<%= turbo_stream.prepend("msg", partial: "layouts/flash") %>
+
+<%= turbo_stream.prepend("served", partial: 'orders/order', locals: { order: @order, served: true}) %>
+
+<%= turbo_stream.remove(@order) %>

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag 'msg' do %>
+  <% flash.each do |f| %>
+    <div
+      id="notif"
+      class="visible <%= f[0] %>"
+      data-controller="flashes"
+      data-action="click->flashes#connect"
+    >
+      <%= f[1] %>
+    </div>
+  <% end %>
+<% end %>

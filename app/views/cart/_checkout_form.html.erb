@@ -1,0 +1,6 @@
+<%= turbo_frame_tag 'cart-checkout' do %>
+  <%= form_with(url: checkout_path, html: { class: "mt-6" }, remote: true, data: { controller: 'panel' }) do |f| %>
+    <%= f.hidden_field :id, value: @cart.id %>
+    <%= f.submit "Checkout", class: "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full", data: { panel_target: 'cart' } %>
+  <% end %>
+<% end %>

@@ -1,7 +1,7 @@
 <%= turbo_frame_tag dom_id item do %>
-  <%= form_with(url: cart_add_path) do |f| %>
+  <%= form_with(url: "#{cart_add_path}?id=#{params[:id]}", scope: 'item') do |f| %>
     <%= f.hidden_field :id, value: item.id %>
-    <%= f.number_field :qty, value: qty, min: 1 %>
-    <%= f.submit "Add to cart" %>
+    <%= f.number_field :qty, value: qty, min: 1, class: "border border-gray-400 rounded-sm" %>
+    <%= f.submit "Add to cart", class: "cursor-pointer bg-green-300 font-semibold rounded-sm ml-2 py-2 px-3" %>
   <% end %>
 <% end %>

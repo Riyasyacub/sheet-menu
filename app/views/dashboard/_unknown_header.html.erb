@@ -1,4 +1,4 @@
-<nav class="bg-white shadow">
+<nav class="bg-white shadow p-2 mt-0 sticky w-full z-10 top-0">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex">
@@ -7,9 +7,9 @@
           <img class="hidden lg:block h-14 w-auto" src="/assets/sheet_menu_logo-e1f5d37642213a4aca1b305f609c92880ab76132c30905b506b8cd96a17540ab.png">
         </div>
       </div>
-      <div class="sm:ml-6 sm:flex sm:items-center" data-controller="panel">
-        <%#= link_to 'View Cart', cart_path(params[:id]), data: { cart_target: 'openCart' } %>
-        <button data-panel-target="cart" >View Cart</button>
+      <div class="sm:ml-6 sm:flex sm:flex-row sm:items-center" data-controller="panel">
+        <%= link_to "Your Orders", order_path, data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
+        <%= link_to "View Cart", cart_path(@cart), data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
       </div>
     </div>
   </div>

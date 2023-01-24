@@ -5,9 +5,9 @@ class Menu < ApplicationRecord
   validates_presence_of :sheet_key, :title
 
   def self.create_with_sheet_key(menu_params)
-    sheet_key     = menu_params['sheet_key']
-    items, tables = import_data(sheet_key)
-    menu          = self.new(menu_params.merge(title: spreadsheet.title))
+    sheet_key                  = menu_params['sheet_key']
+    items, tables, spreadsheet = import_data(sheet_key)
+    menu                       = self.new(menu_params.merge(title: spreadsheet.title))
     ActiveRecord::Base.transaction do
       menu.save!
       menu_items, menu_tables = assign_data(menu, items, tables)
@@ -27,21 +27,21 @@ class Menu < ApplicationRecord
   private
 
   def self.import_data(sheet_key)
-    credential_file  = Rails.root.join('sheet-menu-362808-25605a1a9055.json').to_s
-    session          = GoogleDrive::Session.from_config(credential_file)
-    spreadsheet      = session.spreadsheet_by_key(sheet_key)
-    items_sheet      = spreadsheet.worksheets[0]
-    item_keys, items = items_sheet&.rows&.first, items_sheet&.rows[1..-1]
-    item_keys        = item_keys&.map { |k| k.parameterize.underscore.to_sym }
-    items            = items&.map { |i| item_keys.zip(i).to_h }
-    items            = items&.uniq { |v| v[:item_name] }
+    credential_file    = Rails.root.join('sheet-menu-362808-25605a1a9055.json').to_s
+    session            = GoogleDrive::Session.from_config(credential_file)
+    spreadsheet        = session.spreadsheet_by_key(sheet_key)
+    items_sheet        = spreadsheet.worksheets[0]
+    item_keys, items   = items_sheet&.rows&.first, items_sheet&.rows[1..-1]
+    item_keys          = item_keys&.map { |k| k.parameterize.underscore.to_sym }
+    items              = items&.map { |i| item_keys.zip(i).to_h }
+    items              = items&.uniq { |v| v[:item_name] }
     tables_sheet       = spreadsheet.worksheets[1]
     table_keys, tables = tables_sheet&.rows&.first, tables_sheet&.rows[1..-1]
     table_keys         = table_keys&.map { |k| k.parameterize.underscore.to_sym }
     tables             = tables&.map { |i| table_keys.zip(i).to_h }
     tables             = tables&.uniq { |v| v[:name] }
 
-    [items, tables]
+    [items, tables, spreadsheet]
   end
 
   def self.assign_data(menu, items, tables)

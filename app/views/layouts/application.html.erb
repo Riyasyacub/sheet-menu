@@ -11,15 +11,25 @@
   <%= javascript_importmap_tags %>
 </head>
 
-<body class="<%= 'h-full' if devise_controller? || user_signed_in? %>">
-<%= render 'layouts/notification' %>
+<body class="w-full <%= 'h-full' if devise_controller? || user_signed_in? %>">
+<script>
+    localStorage.setItem('user_id', '')
+</script>
+<div id="flash" class="flash">
+  <%= render 'layouts/notification' %>
+</div>
 <% if user_signed_in? %>
   <%= render 'dashboard/header' %>
+  <script>
+      localStorage.setItem('user_id', <%= current_user.id %>)
+  </script>
 <% end %>
 <% if unknown_user? %>
   <%= render 'dashboard/unknown_header' %>
 <% end %>
 <%= yield %>
-<%= render 'layouts/slide_over'  %>
+<% if params[:controller] == 'tables' && params[:action] == 'show' && !user_signed_in? %>
+  <%= render 'layouts/slide_over' %>
+<% end %>
 </body>
 </html>

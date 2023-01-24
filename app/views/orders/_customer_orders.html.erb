@@ -1,0 +1,45 @@
+<% if @cart.ordered_items.present? %>
+  <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6 mb-8">
+    <%= render 'layouts/slide_over_header', title: 'Your Orders' %>
+
+    <div class="mt-8">
+      <div class="flow-root">
+        <ul role="list" class="-my-6 divide-y divide-gray-200" data-id="cart-items">
+          <%= render partial: 'menus/cart_item', locals: { items: @cart.ordered_items } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+    <%= render "cart/cart_total", items: :ordered %>
+    <div class="mt-6 flex justify-center text-center text-sm text-gray-500" data-controller="panel">
+      <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" data-action="click->panel#close">
+        Continue Shopping
+        <span aria-hidden="true"> &rarr;</span>
+      </button>
+      </p>
+    </div>
+  </div>
+<% else %>
+  <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6 mb-8">
+    <div class="flex items-start justify-between">
+      <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Your Orders</h2>
+      <div class="ml-3 flex h-7 items-center">
+        <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500" data-action="click->panel#close">
+          <span class="sr-only">Close panel</span>
+          <!-- Heroicon name: outline/x-mark -->
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <div class="flow-root">
+        <p class="p-3"> Please make your first order. </p>
+      </div>
+    </div>
+  </div>
+<% end %>

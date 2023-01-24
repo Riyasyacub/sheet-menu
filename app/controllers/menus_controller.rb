@@ -2,10 +2,9 @@
 
 class MenusController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_menu, except: [:show, :new, :create]
+  before_action :set_menu, except: [:new, :create]
 
   def show
-    @menu = Menu.find params[:id]
     orderables = @cart.orderables.to_sql
     @menu = @menu.menu_items
                  .joins("left join (#{orderables}) orderables on orderables.menu_item_id = menu_items.id")
@@ -42,7 +41,13 @@ class MenusController < ApplicationController
   end
 
   def qr_code
-    @qrcode = RQRCode::QRCode.new(menu_url(@menu))
+    # @qrcode = RQRCode::QRCode.new(menu_url(@menu))
+    @codes = @menu.tables.map do |table|
+      {
+        table: table,
+        qr: RQRCode::QRCode.new(table_url(table))
+      }
+    end
   end
 
   def sync
@@ -67,5 +72,6 @@ class MenusController < ApplicationController
     @menu = Menu.find_by(id: params[:id])
     return if @menu.present?
     flash[:alert] = 'Menu not found!'
+    redirect_to root_path
   end
 end

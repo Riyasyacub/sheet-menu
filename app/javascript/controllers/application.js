@@ -1,4 +1,5 @@
 import { Application } from "@hotwired/stimulus"
+import 'jquery'
 
 const application = Application.start()
 

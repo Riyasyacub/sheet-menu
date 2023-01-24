@@ -1,0 +1,28 @@
+<%= turbo_frame_tag 'slide_over_content', class: "flex h-full flex-col overflow-y-scroll shadow-xl" do %>
+
+  <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6 mb-8">
+    <%= render 'layouts/slide_over_header', title: 'Your Cart' %>
+
+    <div class="mt-8">
+      <div class="flow-root">
+        <ul role="list" class="-my-6 divide-y divide-gray-200 h-full" data-id="cart-items">
+          <%= render partial: 'menus/cart_item', locals: { items: @cart.items } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+    <%= render "cart/cart_total", items: :items %>
+    <div class="mt-6">
+      <%= render 'cart/checkout_form' %>
+    </div>
+    <div class="mt-6 flex justify-center text-center text-sm text-gray-500" data-controller="panel">
+      <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" data-action="click->panel#close">
+        Continue Shopping
+        <span aria-hidden="true"> &rarr;</span>
+      </button>
+      </p>
+    </div>
+  </div>
+<% end %>

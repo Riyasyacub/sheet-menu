@@ -1,17 +1,18 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ['cart']
 
-    connect() {
-        this.cartTarget.addEventListener('click', () => {
-            let cartDrawer = document.getElementById('cart-drawer')
-            if(cartDrawer.classList.contains('show')) {
-                cartDrawer.classList.remove('show')
-            }
-            else {
-                cartDrawer.classList.add('show')
-            }
-        })
+    open() {
+        let cartDrawer = $('#cart-drawer')
+        cartDrawer.addClass('show')
+        $(".overlay").addClass('show')
+        $(".pane").addClass('right--100')
+    }
+
+    close() {
+        let cartDrawer = $('#cart-drawer')
+        cartDrawer.removeClass('show')
+        $(".overlay").removeClass('show')
+        $(".pane").removeClass('right--100')
     }
 }

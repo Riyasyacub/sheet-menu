@@ -1,8 +1,4 @@
-<% if flash.present? %>
-  <% flash.each do |f| %>
-    <div id="notif" class="visible <%= f[0] %>"><%= f[1] %></div>
-  <% end %>
-<% end %>
+<%= render 'layouts/flash' %>
 <style>
     #hoverme {
         background: grey;
@@ -22,12 +18,13 @@
     .warning {
         background: rgba(224, 88, 87, 0.84);
     }
+
     .notice {
         background: rgba(85, 134, 239, 0.84);
     }
 
     .visible {
-        animation: movein 0.5s ease forwards, moveout 0.5s 3s ease forwards;
+        animation: movein 0.5s ease forwards, moveout 0.5s 4s ease forwards;
         color: white;
         border-radius: 0.375rem;
         font-size: 18px;
@@ -38,6 +35,7 @@
         top: 20px;
         right: 0;
         padding: 0.5rem 1rem 0.5rem 1rem;
+        z-index: 200;
     }
 
     /*#notif {
@@ -47,19 +45,23 @@
 
     @keyframes movein {
         from {
-            right: -240px;
+            /*right: -100%;*/
+            top: -100%;
         }
         to {
-            right: 10px;
+            /*right: 10px;*/
+            top: 10px;
         }
     }
 
     @keyframes moveout {
         from {
-            right: 10px;
+            /*right: 10px;*/
+            top: 10px;
         }
         to {
-            right: -240px;
+            /*right: -100%;*/
+            top: -100%;
         }
     }
 </style>
