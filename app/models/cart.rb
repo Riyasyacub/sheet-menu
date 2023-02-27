@@ -1,13 +1,16 @@
 class Cart < ApplicationRecord
   belongs_to :hotel, class_name: "User", foreign_key: :hotel_id
   belongs_to :table
-  has_many :orderables
+  has_many :orderables, dependent: :destroy
   has_many :menu_items, through: :orderables
 
   default_scope -> { order('created_at desc') }
 
   scope :billed, -> { where(billed: true) }
   scope :not_billed, -> { where(billed: false) }
+  scope :today, -> { where("created_at < '#{Date.tomorrow}' and created_at >= '#{Date.today}'")}
+
+  validate :can_be_billed?
 
   def total(scope = :items)
     items = items_scope(scope)
@@ -32,6 +35,10 @@ class Cart < ApplicationRecord
   end
 
   def ordered_items
+    orderables.where(ordered: true, cancelled: false)
+  end
+
+  def ordered_with_cancelled_items
     orderables.where(ordered: true)
   end
 
@@ -44,7 +51,7 @@ class Cart < ApplicationRecord
   end
 
   def pending_items
-    orderables.where(ordered: true, served: false)
+    orderables.where(ordered: true, served: false, cancelled: false)
   end
 
   private
@@ -53,8 +60,15 @@ class Cart < ApplicationRecord
     case scope
     when :items
       self.items
-    when :ordered
+    when :ordered_items
       self.ordered_items
+    when :pending_items
+      self.pending_items
     end
+  end
+
+  def can_be_billed?
+    return if orderables.where(ordered: true, cancelled: false).all? { |a| a.served?  }
+    errors.add(:base, "There are some pending items in the cart!")
   end
 end

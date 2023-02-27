@@ -1,20 +1,15 @@
-<div class="container">
+<div class="m-5">
   <div class="flex justify-between gap-4">
     <div id="pending-orders" class="w-full">
-      <h1>Pending Orders</h1>
-      <% @pending_orders.each.with_index do |order, index| %>
-        <%= turbo_frame_tag dom_id order do %>
-          <%= render partial: 'orders/order', locals: { order: order, served: false, index: index + 1 } %>
+      <% if @orders.present? %>
+        <% @orders.each do |order| %>
+          <%= render partial: 'orders/order', locals: { order: order, billed: false } %>
         <% end %>
+      <% else %>
+      <div class="flex justify-center items-center m-5 w-full" >
+        <p>No Orders Present at this time</p>
+      </div>
       <% end %>
     </div>
-<!--    <div id="billed-orders" class="w-1/2">-->
-<!--      <h1>Served Orders</h1>-->
-      <%# @served_orders.each.with_index do |order, index| %>
-        <%#= turbo_frame_tag "served" do %>
-          <%#= render partial: 'orders/order', locals: { order: order, served: true, index: index + 1 } %>
-        <%# end %>
-      <%# end %>
-<!--    </div>-->
   </div>
 </div>

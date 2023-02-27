@@ -1,0 +1,7 @@
+<tr id="<%= dom_id item %>">
+  <td class="border-b border-slate-100 p-2 text-center"><%= index + 1 %></td>
+  <td class="border-b border-slate-100 p-2 text-left <%= item.cancelled? ? 'line-through' : '' %>"><%= item.menu_item.item_name %></td>
+  <td class="border-b border-slate-100 p-2 text-center <%= item.cancelled? ? 'line-through' : '' %>"><%= item.qty %></td>
+  <td class="border-b border-slate-100 p-2 text-center <%= item.cancelled? ? 'line-through' : '' %>">₹ <%= item.total %></td>
+  <%= render "orders/item_row_actions", item: item %>
+</tr>

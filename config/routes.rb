@@ -28,8 +28,10 @@ Rails.application.routes.draw do
   post 'cart/add', to: 'cart#add', as: :cart_add
   post 'cart/remove', to: 'cart#remove', as: :cart_remove
   post '/checkout', to: 'cart#checkout', as: :checkout
+  post '/billed', to: 'cart#billed', as: :billed
 
   resources :orders, only: [:index, :show]
   post 'orders/served', to: 'orders#served', as: :served
-  post 'orders/cancel', to: 'orders#cancel', as: :order_cancel
+  post 'orders/process', to: 'orders#processing', as: :processing
+  post 'orders/cancel', to: 'orders#cancel', as: :item_cancel
 end

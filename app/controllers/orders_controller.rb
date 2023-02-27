@@ -1,39 +1,43 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
-  before_action :set_order, only: [:served, :show]
+  before_action :authenticate_user!, except: [:show, :cancel]
+  before_action :set_order, only: [:served, :show, :cancel, :processing]
 
   def index
-    @pending_orders = current_user.carts.not_billed
-    # @served_orders  = current_user.carts.billed.limit(20)
+    if params[:billed].present?
+      @orders = current_user.carts.billed.today
+    else
+      @orders = current_user.carts.not_billed
+    end
   end
 
   def show
+  end
 
+  def processing
+    @item.process
+    flash.now[:success] = "Item Processing"
   end
 
   def served
-    @order.update(billed: true)
-    flash.now[:success] = "Order Updated"
+    @item.serve
+    flash.now[:success] = "Item Served"
   end
 
   def cancel
-
+    @item.cancel
+    flash.now[:success] = "Item Cancelled!"
   end
 
   private
 
-  def serve_params
-    params.permit(:id)
-  end
-
-  def cancel_params
+  def order_params
     params.permit(:id)
   end
 
   def set_order
-    @order = Cart.find_by(id: serve_params[:id])
-    return if @order.present?
+    @item = Orderable.find_by(id: order_params[:id])
+    return if @item.present?
     flash.now[:alert] = "Order not found!"
-    render turbo_stream: [turbo_stream.prepend("msg", partial: "layouts/flash")]
+    render_turbo_flash_messages
   end
 end

@@ -1,0 +1,4 @@
+<% if @cart.errors.none? %>
+  <%= turbo_stream.remove("#{dom_id @cart}") %>
+<% end %>
+<%= render_turbo_flash_messages %>

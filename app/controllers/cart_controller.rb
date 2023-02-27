@@ -1,5 +1,6 @@
 class CartController < ApplicationController
   before_action :check_cart, only: [:checkout]
+  before_action :set_cart, only: [:billed]
 
   def show
 
@@ -25,7 +26,7 @@ class CartController < ApplicationController
                               turbo_stream.replace('cart-total', partial: 'cart/cart_total', locals: { items: @cart.items }),
                               turbo_stream.replace(item, partial: 'cart/add_form', locals: { item: item, qty: qty }),
                               turbo_stream.replace('cart-checkout', partial: 'cart/checkout_form'),
-                              turbo_stream.replace('msg', partial: 'layouts/flash' )]
+                              turbo_stream.replace('msg', partial: 'layouts/flash')]
       end
     end
   end
@@ -46,10 +47,17 @@ class CartController < ApplicationController
   def checkout
     return if @cart_order.blank? || @cart_order.orderables.blank?
     session[:orders] = @cart_order.id
-    # @cart.update(ordered: true, ordered_at: Time.now)
     @cart.checkout
     ActionCable.server.broadcast("orders_#{@cart_order.hotel_id}", html: render_order, message: "You have received an order")
     flash.now[:success] = "Your order has been made!"
+  end
+
+  def billed
+    if @cart.update(billed: true)
+      flash.now[:success] = "Order Billed"
+    else
+      flash.now[:error] = @cart.errors.full_messages
+    end
   end
 
   private
@@ -59,7 +67,11 @@ class CartController < ApplicationController
   end
 
   def add_params
-    params.require('item').permit(:id, :qty)
+    params.require(:item).permit(:id, :qty)
+  end
+
+  def set_cart
+    @cart = Cart.find_by(id: params[:id])
   end
 
   def check_cart
@@ -75,6 +87,7 @@ class CartController < ApplicationController
   end
 
   def render_order
-    ApplicationController.render(partial: 'orders/order', locals: { order: @cart, served: false })
+    # todo: change index
+    ApplicationController.render(partial: 'orders/order', locals: { order: @cart, billed: false })
   end
 end

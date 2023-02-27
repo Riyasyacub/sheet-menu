@@ -2,7 +2,7 @@
   <% if items.count > 0 %>
     <% items.each do |orderable| %>
       <% item = orderable.menu_item %>
-      <li class="flex py-6" id="<%= "cart-#{item.id}" %>">
+      <li class="flex py-6" id="<%= "cart-#{orderable.id}" %>">
         <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
           <img src="<%= item.image_url.present? ? item.image_url : 'https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png' %>" alt="<%= item.item_name %>" class="h-full w-1 object-cover object-center">
         </div>
@@ -20,10 +20,14 @@
             <p class="text-gray-500">Qty <span data-qty-id="<%= item.id %>"><%= orderable.qty %></span></p>
 
             <div class="flex">
-              <% if orderable.preparing? %>
+              <% if orderable.served? %>
+                <div class="text-green-400">Served</div>
+              <% elsif orderable.preparing? %>
                 <div class="text-green-400">Preparing</div>
+              <% elsif orderable.cancelled? %>
+                <div class="text-red-400">Cancelled</div>
               <% elsif orderable.ordered? %>
-                <%= form_with(url: order_cancel_path) do |f| %>
+                <%= form_with(url: item_cancel_path) do |f| %>
                   <%= f.hidden_field :id, value: orderable.id %>
                   <%= f.submit "Cancel", class: "text-red-400 cursor-pointer" %>
                 <% end %>

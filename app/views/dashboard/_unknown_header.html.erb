@@ -8,8 +8,8 @@
         </div>
       </div>
       <div class="sm:ml-6 sm:flex sm:flex-row sm:items-center" data-controller="panel">
-        <%= link_to "Your Orders", order_path, data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
-        <%= link_to "View Cart", cart_path(@cart), data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
+        <%= link_to "Your Orders", cart_path(@cart, ordered: true), class: "mx-2 ", data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
+        <%= link_to "View Cart", cart_path(@cart), class: "mx-2 ", data: { action: "click->panel#open", turbo_frame: 'slide_over_content' } %>
       </div>
     </div>
   </div>

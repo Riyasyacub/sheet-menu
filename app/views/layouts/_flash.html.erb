@@ -1,12 +1,26 @@
 <%= turbo_frame_tag 'msg' do %>
   <% flash.each do |f| %>
-    <div
-      id="notif"
-      class="visible <%= f[0] %>"
-      data-controller="flashes"
-      data-action="click->flashes#connect"
-    >
-      <%= f[1] %>
-    </div>
+    <% if f[1].is_a?(Array) %>
+      <% f[1].each do |msg| %>
+        <div
+          id="notif"
+          class="visible <%= f[0] %>"
+          data-controller="flashes"
+          data-action="click->flashes#connect"
+        >
+          <%= msg %>
+        </div>
+      <% end %>
+    <% else %>
+      <div
+        id="notif"
+        class="visible <%= f[0] %>"
+        data-controller="flashes"
+        data-action="click->flashes#connect"
+      >
+        <%= f[1] %>
+      </div>
+    <% end %>
+
   <% end %>
 <% end %>

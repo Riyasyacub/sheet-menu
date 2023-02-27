@@ -6,4 +6,8 @@ module ApplicationHelper
     true
   end
 
+  def render_turbo_flash_messages
+    turbo_stream.prepend("msg", partial: "layouts/flash")
+  end
+
 end

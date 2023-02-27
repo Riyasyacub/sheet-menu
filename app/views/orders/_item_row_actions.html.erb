@@ -1,0 +1,37 @@
+<td class="border-b border-slate-100 p-2 text-center flex justify-center" id="<%= dom_id item %>_actions">
+  <% if item.served? %>
+    <div>
+      <button>Served!</button>
+    </div>
+  <% elsif item.preparing? %>
+    <div>
+      <%= form_with(url: served_path) do |f| %>
+        <%= f.hidden_field :id, value: item.id %>
+        <%= f.submit "Serve", class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 cursor-pointer' %>
+      <% end %>
+    </div>
+  <% elsif item.cancelled? %>
+    <div>
+      <button>Cancelled!</button>
+    </div>
+  <% else %>
+    <div>
+      <%= form_with(url: served_path) do |f| %>
+        <%= f.hidden_field :id, value: item.id %>
+        <%= f.submit "Serve", class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 cursor-pointer' %>
+      <% end %>
+    </div>
+    <div>
+      <%= form_with(url: processing_path) do |f| %>
+        <%= f.hidden_field :id, value: item.id %>
+        <%= f.submit "Process", class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer' %>
+      <% end %>
+    </div>
+    <div>
+      <%= form_with(url: item_cancel_path) do |f| %>
+        <%= f.hidden_field :id, value: item.id %>
+        <%= f.submit "Cancel", class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 cursor-pointer' %>
+      <% end %>
+    </div>
+  <% end %>
+</td>
