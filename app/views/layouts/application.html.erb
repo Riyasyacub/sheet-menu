@@ -25,6 +25,9 @@
   </script>
 <% end %>
 <% if unknown_user? %>
+  <script>
+      localStorage.setItem('cart_id', <%= @cart&.id %>)
+  </script>
   <%= render 'dashboard/unknown_header' %>
 <% end %>
 <%= yield %>

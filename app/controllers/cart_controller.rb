@@ -17,7 +17,12 @@ class CartController < ApplicationController
       current_orderable.destroy
       flash.now[:success] = "Item removed from cart!"
     else
-      @cart.orderables.create(menu_item: item, qty: qty)
+      if @cart.persisted?
+        @cart.orderables.create(menu_item: item, qty: qty)
+      else
+        @cart.save
+        @cart.orderables.create(menu_item: item, qty: qty)
+      end
       flash.now[:success] = "Item added to cart!"
     end
     respond_to do |format|

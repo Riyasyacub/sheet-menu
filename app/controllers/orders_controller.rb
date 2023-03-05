@@ -15,17 +15,23 @@ class OrdersController < ApplicationController
 
   def processing
     @item.process
-    flash.now[:success] = "Item Processing"
+    item_name = @item.menu_item.item_name
+    flash.now[:success] = "#{item_name} is Processing"
+    ActionCable.server.broadcast("cart_#{@item.cart_id}",type: 'success', message: "#{item_name} has started preparing")
   end
 
   def served
     @item.serve
-    flash.now[:success] = "Item Served"
+    item_name = @item.menu_item.item_name
+    flash.now[:success] = "#{item_name} is Served"
+    ActionCable.server.broadcast("cart_#{@item.cart_id}",type: 'success', message: "#{item_name} is served")
   end
 
   def cancel
     @item.cancel
-    flash.now[:success] = "Item Cancelled!"
+    item_name = @item.menu_item.item_name
+    flash.now[:success] = "#{item_name} is Cancelled!"
+    ActionCable.server.broadcast("cart_#{@item.cart_id}",type: 'alert', message: "#{item_name} got cancelled")
   end
 
   private
