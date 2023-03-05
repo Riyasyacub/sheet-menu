@@ -15,6 +15,8 @@ consumer.subscriptions.create({channel: "OrdersChannel", user_id: id}, {
     let str = `<div id="notif" class="visible notice" data-controller="flashes" data-action="click->flashes#connect" >`+ data['message'] +`</div>`
     $("#flash #msg").append(str)
     $("#pending-orders").prepend(data['html'])
+    let audio = new Audio('https://www.notificationsounds.com/storage/sounds/file-sounds-1150-pristine.mp3')
+    audio.play()
     // Called when there's incoming data on the websocket for this channel
   }
 });
