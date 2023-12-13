@@ -3,11 +3,6 @@ class CartChannel < ApplicationCable::Channel
     # stream_from "some_channel"
     stop_all_streams
     stream_from "cart_#{params[:cart_id]}"
-    puts "*" * 100
-    puts "*" * 100
-    puts "cart_#{params[:cart_id]}"
-    puts "*" * 100
-    puts "*" * 100
   end
 
   def unsubscribed
