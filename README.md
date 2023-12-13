@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is solely developed by me (Riyas Yacub). This is one of my hobby project which is **not yet completed**.
 
-Things you may want to cover:
+### PROBLEM
 
-* Ruby version
+Restaurants face the following problems:
 
-* System dependencies
+1. Misunderstanding a menu item for other while taking orders
+2. Unsure of the availability of a menu item
+3. Frequently changing the price of the menu items
+4. Special occasion items cannot be added to the existing menu card
 
-* Configuration
+### SOLUTION
 
-* Database creation
+To resolve the above problems, I came up with the following solution.
 
-* Database initialization
+Restaurant owners after signing up to my website they will sync their menu card in the form of SpreadSheet. 
+I will create or update the menu card items. This can be done at any point of time.
+Owners can update the number of tables too. So that I will create Unique QR codes for each table.
+Customers can scan the QR code and order the food without the intervention of waiters.
 
-* How to run the test suite
+All the above features are updated on real time
 
-* Services (job queues, cache servers, search engines, etc.)
+### TECHNOLOGIES USED
 
-* Deployment instructions
-
-* ...
+1. Ruby on Rails 7
+2. Tailwind CSS
+3. Hotwire
+4. Stimulus JS
+5. JQuery
