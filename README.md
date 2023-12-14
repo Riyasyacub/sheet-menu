@@ -29,3 +29,15 @@ All the above features are updated on real time
 3. Hotwire
 4. Stimulus JS
 5. JQuery
+6. Postgres
+
+## Getting Started
+> git clone https://github.com/Riyasyacub/sheet-menu
+
+> cd sheet-menu
+
+> bundle install
+
+> rails s
+
+**NOTE: This project uses my personal google sheet authentication**
